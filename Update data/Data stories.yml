@@ -1,0 +1,31 @@
+version: "3.0"
+stories:
+- story: product search
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: search_product
+    entities:
+    - product
+  - slot_was_set:
+    - product
+  - action: action_search_product
+
+- story: order status
+  steps:
+  - intent: order_status
+    entities:
+    - order_id
+  - slot_was_set:
+    - order_id
+  - action: action_check_order
+
+- story: faq shipping
+  steps:
+  - intent: faq_shipping
+  - action: utter_faq_shipping
+
+- story: faq returns
+  steps:
+  - intent: faq_returns
+  - action: utter_faq_returns
