@@ -1,0 +1,20 @@
+    Train Rasa Model:
+     rasa train
+
+
+
+Start Rasa Action Server:
+     
+
+       rasa run actions
+ 
+
+    Start Rasa Core Server:
+     
+
+           rasa run --enable-api --cors "*"
+ 
+ 
+
+    Start Flask App:
+                python app.py
