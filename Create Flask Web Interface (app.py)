@@ -1,0 +1,25 @@
+from flask import Flask, render_template, request, jsonify
+import requests
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return render_template("chat.html")
+
+@app.route("/webhook", methods=["POST"])
+def webhook():
+    user_message = request.json["message"]
+    
+    # Send to Rasa server
+    rasa_response = requests.post(
+        "http://localhost:5005/webhooks/rest/webhook",
+        json={"sender": "user", "message": user_message}
+    )
+    
+    # Extract bot response
+    bot_response = rasa_response.json()[0]["text"] if rasa_response.json() else "Sorry, I didn't understand."
+    return jsonify({"response": bot_response})
+
+if __name__ == "__main__":
+    app.run(port=3000)
