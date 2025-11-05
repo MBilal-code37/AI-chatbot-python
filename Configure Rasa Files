@@ -1,0 +1,39 @@
+version: "3.0"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - search_product
+  - order_status
+  - faq_shipping
+  - faq_returns
+
+entities:
+  - product
+  - order_id
+
+responses:
+  utter_greet:
+  - text: "Hi! I'm your shopping assistant. How can I help?"
+  utter_goodbye:
+  - text: "Bye! Have a great day!"
+  utter_default:
+  - text: "I didn't understand. Can you rephrase?"
+  utter_ask_product:
+  - text: "What product are you looking for?"
+  utter_ask_order_id:
+  - text: "Please provide your order ID (e.g., ORD-12345)"
+  utter_faq_shipping:
+  - text: "Standard shipping takes 3-5 business days. Express shipping is 1-2 days."
+  utter_faq_returns:
+  - text: "Returns are accepted within 30 days with original packaging."
+
+actions:
+  - action_search_product
+  - action_check_order
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
