@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>E-commerce Chatbot</title>
+    <style>
+        #chat-box { width: 400px; height: 500px; border: 1px solid #ccc; padding: 10px; overflow-y: scroll; }
+        .user-msg { text-align: right; color: blue; }
+        .bot-msg { text-align: left; color: green; }
+    </style>
+</head>
+<body>
+    <h2>ShopAssist AI</h2>
+    <div id="chat-box"></div>
+    <input type="text" id="user-input" placeholder="Type your message...">
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById("user-input");
+            const message = input.value;
+            if (!message) return;
+            
+            // Add user message to chat
+            document.getElementById("chat-box").innerHTML += 
+                `<div class="user-msg">You: ${message}</div>`;
+            input.value = "";
+            
+            // Send to backend
+            fetch("/webhook", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({message: message})
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("chat-box").innerHTML += 
+                    `<div class="bot-msg">Bot: ${data.response}</div>`;
+                document.getElementById("chat-box").scrollTop = 
+                    document.getElementById("chat-box").scrollHeight;
+            });
+        }
+        
+        // Send message on Enter key
+        document.getElementById("user-input").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") sendMessage();
+        });
+    </script>
+</body>
+</html>
