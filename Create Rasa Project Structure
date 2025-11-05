@@ -1,0 +1,13 @@
+rasa init --no-prompt
+
+
+
+
+his creates a basic Rasa project with these key files: 
+
+    domain.yml: Defines intents, responses, and actions
+    config.yml: NLU and dialogue pipeline
+    data/nlu.yml: Training data for natural language understanding
+    data/stories.yml: Conversation flows
+    actions.py: Custom backend actions
+     
